@@ -15,11 +15,11 @@ let currentAudio = null;
                     listItem.className = 'radio-item';
                     listItem.innerHTML = `
                         <img src="${radio.image['200']}" alt="${radio.name}" onclick="toggleRadio(this, '${radio.stream}')">
-                        <div class="radio-name">${radio.name}</div> <!-- Nombre de la radio -->
+                        <div class="radio-name">${radio.name}</div> 
                         <div class="controls">
-                            <button onclick="playRadio('${radio.stream}', this)">▶️</button> <!-- Símbolo de reproducir -->
-                            <button onclick="stopRadio()">⏹️</button> <!-- Símbolo de detener -->
-                            <button onclick="window.open('${radio.url}', '_blank')">🌐</button> <!-- Botón para sitio web -->
+                            <button onclick="playRadio('${radio.stream}', this)">▶️</button> 
+                            <button onclick="stopRadio()">⏹️</button> 
+                            <button onclick="window.open('${radio.url}', '_blank')">🌐</button>
                         </div>
                         <div class="spectrum"></div>
                     `;
