@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #e0f7fa;
+    background-color: #17b7e3;
     color: #333;
     text-align: center;
     margin: 0;
@@ -8,7 +8,7 @@ body {
 }
 
 h1 {
-    color: #ff5722;
+    color: #910707;
     margin-bottom: 20px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
@@ -33,13 +33,11 @@ h1 {
     padding: 20px;
     transition: transform 0.2s, box-shadow 0.2s;
     overflow: hidden;
-
 }
 
 .radio-item:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-
 }
 
 .radio-item img {
@@ -48,7 +46,6 @@ h1 {
     border-radius: 50%;
     transition: transform 0.2s;
     border: 3px solid #ff5722;
-
 }
 
 .radio-item.active img {
@@ -112,4 +109,20 @@ button:hover {
     100% {
         transform: scaleX(0);
     }
+}
+
+.radio-name {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.radio-item:hover .radio-name {
+    display: block;
 }
