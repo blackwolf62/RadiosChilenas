@@ -1,65 +1,67 @@
-let currentAudio = null; // Variable para almacenar el audio actual
-let activeItem = null; // Variable para almacenar el elemento activo
+let currentAudio = null; 
+        let activeItem = null;
 
-async function fetchRadios() {
-    try {
-        const response = await fetch('https://api.boostr.cl/radios.json');
-        if (!response.ok) {
-            throw new Error('Error en la red');
-        }
-        const data = await response.json();
-        const radioList = document.getElementById('radioList');
+        async function fetchRadios() {
+            try {
+                const response = await fetch('https://api.boostr.cl/radios.json');
+                if (!response.ok) {
+                    throw new Error('Error en la red');
+                }
+                const data = await response.json();
+                const radioList = document.getElementById('radioList');
 
-        data.data.forEach(radio => {
-            const listItem = document.createElement('li');
-            listItem.className = 'radio-item';
-            listItem.innerHTML = `
+                data.data.forEach(radio => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'radio-item';
+                    listItem.innerHTML = `
                         <img src="${radio.image['200']}" alt="${radio.name}" onclick="toggleRadio(this, '${radio.stream}')">
+                        <div class="radio-name">${radio.name}</div> <!-- Nombre de la radio -->
                         <div class="controls">
-                            <button onclick="playRadio('${radio.stream}', this)">Reproducir</button>
-                            <button onclick="stopRadio()">Detener</button>
+                            <button onclick="playRadio('${radio.stream}', this)">▶️</button> <!-- Símbolo de reproducir -->
+                            <button onclick="stopRadio()">⏹️</button> <!-- Símbolo de detener -->
+                            <button onclick="window.open('${radio.url}', '_blank')">🌐</button> <!-- Botón para sitio web -->
                         </div>
                         <div class="spectrum"></div>
                     `;
-            radioList.appendChild(listItem);
-        });
-    } catch (error) {
-        console.error('Error al obtener las radios:', error);
-        alert('No se pudo cargar la lista de radios. Intenta de nuevo más tarde.');
-    }
-}
-
-function toggleRadio(imgElement, streamUrl) {
-    const radioItem = imgElement.closest('.radio-item');
-    if (radioItem.classList.contains('active')) {
-        stopRadio();
-    } else {
-        playRadio(streamUrl, imgElement);
-    }
-}
-
-function playRadio(streamUrl, button) {
-    if (currentAudio) {
-        currentAudio.pause();
-        if (activeItem) {
-            activeItem.classList.remove('active');
+                    radioList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error al obtener las radios:', error);
+                alert('No se pudo cargar la lista de radios. Intenta de nuevo más tarde.');
+            }
         }
-    }
-    currentAudio = new Audio(streamUrl);
-    currentAudio.play();
-    activeItem = button.closest('.radio-item');
-    activeItem.classList.add('active');
-}
 
-function stopRadio() {
-    if (currentAudio) {
-        currentAudio.pause();
-        currentAudio = null;
-        if (activeItem) {
-            activeItem.classList.remove('active');
-            activeItem = null;
+        function toggleRadio(imgElement, streamUrl) {
+            const radioItem = imgElement.closest('.radio-item');
+            if (radioItem.classList.contains('active')) {
+                stopRadio();
+            } else {
+                playRadio(streamUrl, imgElement);
+            }
         }
-    }
-}
 
-fetchRadios();
+        function playRadio(streamUrl, button) {
+            if (currentAudio) {
+                currentAudio.pause(); 
+                if (activeItem) {
+                    activeItem.classList.remove('active');
+                }
+            }
+            currentAudio = new Audio(streamUrl);
+            currentAudio.play();
+            activeItem = button.closest('.radio-item'); 
+            activeItem.classList.add('active');
+        }
+
+        function stopRadio() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+                if (activeItem) {
+                    activeItem.classList.remove('active'); 
+                    activeItem = null;
+                }
+            }
+        }
+
+        fetchRadios();
